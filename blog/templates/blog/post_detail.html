@@ -1,0 +1,42 @@
+{% extends 'home.html' %}
+
+
+{% block content %}
+<div class="container d-flex justify-content-center mt-3">
+
+    <div class="container card m-3 col-12 col-md-7 shadow-lg rounded-3">
+        <img src='/media/{{post.image}}' style="height: 16rem" class="card-img-top" alt="{{post.title}}">
+        <div class="card-body overflow-hidden">
+            <h5 class="card-title">{{post.title}}</h5>
+            <p class="card-text">{{post.content}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{post.category}}</li>
+            <li class="list-group-item">PUBLISH DATE:{{publish.date}}</li>
+            <li class="list-group-item">Last Update: {{post.last_update}}</li>
+        </ul>
+        <div class="card-body">
+
+            <a href="{% url 'addlike' post.id %}" class="btn btn-warning btn-lg shadow-lg rounded-circle">
+                {% if is_like == True %}
+                <i class="bi bi-heart-fill text-danger"> you liked !</i>
+
+                {% else %}
+                <i class="bi bi-heart text-danger"></i>
+                {% endif %}
+                {{like}}</a>
+
+            {% if post.user == request.user %}
+            <a href="{% url 'delete' post.id %}" class="btn btn-danger btn-lg float-end">Delete</a>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+
+{% include 'blog/add_comment.html' %}
+{% include 'blog/comments.html' %}
+
+
+{% endblock content %}

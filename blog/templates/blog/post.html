@@ -1,0 +1,77 @@
+{% extends 'home.html' %}
+
+{% load static %}
+{% block content %}
+
+
+
+{% if request.user.is_authenticated %}
+
+<div class="card bg-dark ">
+  <img src="https://picsum.photos/id/798/400/600" class="card-img " alt="picture">
+  <div class="card-img-overlay">
+
+    <h5 class='m-3' style='text-align: center; text-shadow: 1px 1px 2px #000000 ;'>Welcome {{request.user}}!</h5>
+    <div class="col-12 d-flex flex-row flex-wrap justify-content-center bd-highlight mb-3">
+
+
+      {% for post in posts  %}
+
+      <div class="card m-3 col-9 col-sm-5 col-md-4 col-lg-3 col-xxl-2 shadow-lg "
+        style="height:400px; font-size: 10px;">
+        <img src='/media/{{post.image}}' style="height: 150px" class="card-img-top" alt="{{post.title}}">
+        <div class="card-body overflow-hidden">
+          <a href="{% url 'detail' post.id %}" class="card-title fs-6">{{post.title}}</a>
+          <p class="card-text" style='height: 60px;'>{{post.content}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{post.category}}</li>
+          <li class="list-group-item">PUBLISH DATE:{{publish.date}}</li>
+          <li class="list-group-item">Last Update: {{post.last_update}}</li>
+        </ul>
+        <div class="card-body text-center">
+
+          {% for comment in comments %}
+          {% if comment.post == post.id %}
+          <i class="bi bi-chat-dots-fill fs-6 text-primary float-end me-2">  {{comment.count}}</i>
+          {% endif %}
+          {% endfor %}
+          
+
+          {% for like in likes %}
+          {% if like.post == post.id %}
+          <i class="bi bi-heart-fill fs-6 text-danger float-end me-2">  {{like.count}}</i>
+          {% endif %}
+          {% endfor %}
+
+        </div>
+      </div>
+
+
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+{% else %}
+<!-- <div class="container d-flex flex-column justify-content-center mt-3 col-12">
+  
+  <div>
+    <img class='col-12 opacity-25 card-img' src="https://picsum.photos/200/300?grayscale" alt="picture">
+    <h3 class='mt-2 border w-25'>Wellcome Guest!</h3>
+  </div>
+</div> -->
+<div class="card bg-dark text-white">
+  <img src="https://picsum.photos/200/300?grayscale" class="card-img" alt="picture">
+  <div class="card-img-overlay">
+    <h3 class="card-title" style='text-shadow: 2px 2px 4px #000000 ;'>Welcome Guest</h3>
+    <p class="card-text" style='text-shadow: 2px 2px 4px #000000 ;'>this project is an educational project of clarusway
+    </p>
+
+  </div>
+</div>
+{% endif %}
+
+
+
+{% endblock content %}

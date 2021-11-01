@@ -1,0 +1,13 @@
+{% extends 'home.html' %}
+
+
+{% block content %}
+{% load crispy_forms_tags %}
+<form class='container col-11 col-md-6' enctype='multipart/form-data'  action='{% url "addpost" %}' method="post">
+    {% csrf_token %}  {{ form | crispy }}
+    <input class='col-7 btn btn-primary' type="submit" value='&#8627 Submit'>
+</form>
+
+    
+{% endblock content %}
+    

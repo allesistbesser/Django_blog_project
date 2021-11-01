@@ -1,0 +1,20 @@
+<div class="container d-flex justify-content-center">
+<div class="col-12 col-md-10">
+<h4 class='text-center border-bottom p-1'>Comments</h4> 
+
+{% for comment in comments %}
+
+    
+{% if comment.post_id == post.id %}
+
+    <p class="col-12 mb-0" style='font-size: 10px;'>from : {{comment.user}} // {{comment.time_stamp}}</p>
+    <p class="border border-secondary col-12 rounded-3 p-2 shadow-sm" style='font-size: 12px;'>{{comment.content}}</p>
+
+
+{% endif %}
+
+
+{% endfor %}
+
+</div>
+</div>
