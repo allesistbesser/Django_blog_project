@@ -8,7 +8,7 @@
         <img src='/media/{{post.image}}' style="height: 16rem" class="card-img-top" alt="{{post.title}}">
         <div class="card-body overflow-hidden">
             <h5 class="card-title">{{post.title}}</h5>
-            <p class="card-text">{{post.content}}</p>
+            <p class="card-text lora">{{post.content}}</p>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{post.category}}</li>
@@ -19,12 +19,17 @@
 
             <a href="{% url 'addlike' post.id %}" class="btn btn-warning btn-lg shadow-lg rounded-circle">
                 {% if is_like == True %}
-                <i class="bi bi-heart-fill text-danger"> you liked !</i>
+                <i class="bi bi-heart-fill text-danger"></i>
+                <span class='lora fs-4 bg-warning text-danger rounded-circle' data-toggle="tooltip" data-placement="right"
+                    title="take it back" style="position: absolute; left: 30%; top: 90%; transform: rotate(-30deg);">you
+                    liked !</span>
 
                 {% else %}
-                <i class="bi bi-heart text-danger"></i>
+                <i class="bi bi-heart text-danger" data-toggle="tooltip" data-placement="right"
+                title="like !"></i>
                 {% endif %}
-                {{like}}</a>
+                {{like}}
+            </a>
 
             {% if post.user == request.user %}
             <a href="{% url 'delete' post.id %}" class="btn btn-danger btn-lg float-end">Delete</a>

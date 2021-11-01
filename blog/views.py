@@ -26,13 +26,13 @@ def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
     comments=Comment.objects.all()
     like = Like.objects.all().filter(post=id).count()
-    is_like = bool(Like.objects.filter(user=request.user, post=post))
-    print(is_like)
+    is_like = Like.objects.filter(user=request.user, post=post)
+    
     context = {
         'post':post,
         'comments': comments,
         'like': like,
-        'is_like':is_like,
+        'is_like':bool(is_like),
     }
     return render(request, 'blog/post_detail.html' , context)
 
@@ -44,13 +44,23 @@ def add_comment(request,id):
 
 def add_like(request,id):
     post= get_object_or_404(Post, id=id)
+    comments=Comment.objects.all()
     is_like = Like.objects.filter(user=request.user, post=post)
     if bool(is_like):
         is_like.delete()
     else:
-        like = Like.objects.create(user=request.user , post=post)
-        like.save()
-    return redirect ('/')
+        likeY = Like.objects.create(user=request.user , post=post)
+        likeY.save()
+        
+    like = Like.objects.all().filter(post=id).count()
+    is_like = Like.objects.filter(user=request.user, post=post)
+    context = {
+        'post':post,
+        'comments': comments,
+        'like': like,
+        'is_like':bool(is_like),
+    }
+    return render(request, 'blog/post_detail.html' , context)
     
   
 def add_post(request):
