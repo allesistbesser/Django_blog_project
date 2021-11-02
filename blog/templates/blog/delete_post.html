@@ -2,6 +2,7 @@
 
 
 {% block content %}
+{% if request.user.is_authenticated %}
 <div class="col-10 col-md-7 ms-4 p-3 rounded-3">
     <div class="display-5  mb-4"> Post Delete</div>
     <form action="" , method='POST'>
@@ -18,6 +19,7 @@
     </form>
 
 </div>
+{% endif %}
     
 {% endblock content %}
     

@@ -20,7 +20,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category , related_name='user', on_delete=models.CASCADE )
     title = models.CharField(max_length=20)
     content = models.TextField(max_length=1000)
-    image = models.ImageField(upload_to='post', blank=True)
+    image = models.ImageField(upload_to='post', default='post/indir.png', blank=True)
     publish_date = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10 , choices=STATUS)

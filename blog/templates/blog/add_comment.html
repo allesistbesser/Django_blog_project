@@ -1,13 +1,21 @@
 <div class="container d-flex flex-row justify-content-center">
 
-    <form class='col-12 col-md-7' action='{% url "add" post.id %}' method="post">
+    <form class='col-12 col-md-8 col-lg-7 col-xl-5' action='{% url "add" post.id %}' method="post">
         {% csrf_token %}
-        <div class="form-floating mb-3">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name='comment'
-                style="height: 200px"></textarea>
-            <label for="floatingTextarea2">Comments</label>
+        <p class='text-center'>
+            <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                aria-expanded="false" aria-controls="collapseExample">
+                <i class="bi bi-chat-right-text">  add comment</i>
+            </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="form-floating mb-3">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" name='comment'
+                    style="height: 120px"></textarea>
+                <label class='lora'for="floatingTextarea2">Comments</label>
+            </div>
+           <input class='btn btn-danger btn-sm col-12' type="submit" value="ADD">
         </div>
-        <input class='btn btn-primary btn-sm mb-5 col-12'type="submit" value="ADD">
-       
     </form>
+    
 </div>

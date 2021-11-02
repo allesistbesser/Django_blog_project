@@ -2,13 +2,17 @@
 
 
 {% block content %}
+{% if request.user.is_authenticated %}
 <div class="container d-flex justify-content-center mt-3">
 
-    <div class="container card m-3 col-12 col-md-7 shadow-lg rounded-3">
-        <img src='/media/{{post.image}}' style="height: 16rem" class="card-img-top" alt="{{post.title}}">
+    <div class="container card m-3 p-2 col-12 col-md-8 col-lg-7 col-xl-5 shadow-lg rounded-3">
+        <img src='/media/{{post.image}}' style="height: 16rem; border-radius: 20px;" class="card-img-top"
+            alt="{{post.title}}">
         <div class="card-body overflow-hidden">
             <h5 class="card-title">{{post.title}}</h5>
-            <p class="card-text lora">{{post.content}}</p>
+            <p class="card-text lora">
+               {{post.content}}
+            </p>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{post.category}}</li>
@@ -20,22 +24,25 @@
             <a href="{% url 'addlike' post.id %}" class="btn btn-warning btn-lg shadow-lg rounded-circle">
                 {% if is_like == True %}
                 <i class="bi bi-heart-fill text-danger"></i>
-                <span class='lora fs-4 bg-warning text-danger rounded-circle' data-toggle="tooltip" data-placement="right"
-                    title="take it back" style="position: absolute; left: 30%; top: 90%; transform: rotate(-30deg);">you
+                <span class='lora fs-4 bg-warning text-danger rounded-circle' data-toggle="tooltip"
+                    data-placement="right" title="take it back"
+                    style="position: absolute; left: 30%; top: 87%; transform: rotate(-30deg);">you
                     liked !</span>
 
                 {% else %}
-                <i class="bi bi-heart text-danger" data-toggle="tooltip" data-placement="right"
-                title="like !"></i>
+                <i class="bi bi-heart text-danger" data-toggle="tooltip" data-placement="right" title="like !"></i>
                 {% endif %}
                 {{like}}
             </a>
 
             {% if post.user == request.user %}
-            <a href="{% url 'delete' post.id %}" class="btn btn-danger btn-lg float-end">Delete</a>
+            <a href="{% url 'delete' post.id %}" class="btn btn-danger float-end"><i class="bi bi-trash-fill"></i></a>
+
+            <a href="{% url 'update' post.id %}" class="btn btn-info float-end"><i class="bi bi-pencil-square"></i></a>
             {% endif %}
 
         </div>
+        <p class="col-12 mb-0 lora" style='font-size: 12px;'>Written by: {{post.user}}</p>
     </div>
 
 </div>
@@ -43,5 +50,5 @@
 {% include 'blog/add_comment.html' %}
 {% include 'blog/comments.html' %}
 
-
+{% endif %}
 {% endblock content %}

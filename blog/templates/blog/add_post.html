@@ -2,12 +2,14 @@
 
 
 {% block content %}
+{% if request.user.is_authenticated %}
+<h1 class='nuntio m-5 text-center' >Add new post</h1>
 {% load crispy_forms_tags %}
-<form class='container col-11 col-md-6' enctype='multipart/form-data'  action='{% url "addpost" %}' method="post">
+<form class='container col-11 col-md-7 col-lg-5 mt-3 nuntio' enctype='multipart/form-data'  action='{% url "addpost" %}' method="post">
     {% csrf_token %}  {{ form | crispy }}
-    <input class='col-7 btn btn-primary' type="submit" value='&#8627 Submit'>
+    <input class='col-12 btn btn-danger mt-3' type="submit" value='&#8627 Submit'>
 </form>
-
+{% endif %}
     
 {% endblock content %}
     

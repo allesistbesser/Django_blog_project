@@ -40,7 +40,18 @@ def add_comment(request,id):
     post= get_object_or_404(Post, id=id)
     comment = Comment.objects.create(user=request.user, post=post , content=request.POST['comment'])
     comment.save()
-    return redirect('/')
+    
+    comments=Comment.objects.all()
+    like = Like.objects.all().filter(post=id).count()
+    is_like = Like.objects.filter(user=request.user, post=post)
+    
+    context = {
+        'post':post,
+        'comments': comments,
+        'like': like,
+        'is_like':bool(is_like),
+    }
+    return render(request, 'blog/post_detail.html' , context)
 
 def add_like(request,id):
     post= get_object_or_404(Post, id=id)
@@ -77,6 +88,26 @@ def add_post(request):
         'form':form,
     }
     return render (request, 'blog/add_post.html', context)
+
+def update_post(request,id):
+    post = Post.objects.get(id=id)
+    # post = get_object_or_404(Post , id=id)
+    form = PostForm(instance=post)
+    if request.method == 'POST':
+        form = PostForm(request.POST , instance=post)
+        if form.is_valid:
+            form.save()
+            return redirect('/')
+        
+    context={
+        'form' : form,
+    }
+    return render (request, 'blog/update_post.html', context)
+        
+    
+
+
+
     
 def delete_post(request,id):
     post=get_object_or_404(Post , id=id)
