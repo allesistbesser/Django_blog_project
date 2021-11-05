@@ -1,88 +1,107 @@
 {% extends 'home.html' %}
 
 {% load static %}
+
 {% block content %}
-
-
-
-
 
 <div class="card bg-dark ">
   <img src="https://picsum.photos/400/600" class="card-img" alt="picture">
   <div class="card-img-overlay">
-    
+
     {% if request.user.is_authenticated %}
-     <h5 class='m-3 nuntio float-end' style='text-shadow: 1px 1px 2px #918d8d ;'>Welcome {{request.user}} !</h5>
+    <h5 class='m-3 nuntio float-end' style='text-shadow: 1px 1px 2px #918d8d ;'>Welcome {{request.user}} !</h5>
     {% else %}
     <h3 class="card-title nuntio" style='text-shadow: 2px 2px 4px #918d8d ;'>Welcome Guest</h3>
-    <p class="card-text nuntio" style='text-shadow: 2px 2px 4px #918d8d ;'>this project is an educational project of clarusway, Please login to see details.
+    <p class="card-text nuntio" style='text-shadow: 2px 2px 4px #918d8d ;'>this project is an educational project of
+      clarusway, Please login to see details.
     </p>
 
     {% endif %}
-      
-    <div class="col-12 d-flex flex-row flex-wrap justify-content-center bd-highlight mb-3"> 
+
+    <div class="col-12 d-flex flex-row flex-wrap justify-content-center bd-highlight mb-3">
 
 
       {% for post in posts  %}
 
-      <div class="card m-3 p-2 col-10 col-sm-5 col-md-4 col-lg-3 col-xl-2 shadow-lg nuntio post_img"
+      {% if post.status == 'published' or post.user == request.user %}
+
+      <div class="card m-3 p-2 col-10 col-sm-5 col-md-4 col-lg-3 col-xl-2 shadow-lg post_img"
         style="height:400px; font-size: 10px;">
 
+
         {% if request.user.is_authenticated %}
+
         <a href="{% url 'detail' post.id %}">
-        <img src='/media/{{post.image}}' class="card-img-top m-0 shadow-lg" style="height: 200px;" alt="{{post.title}}"> </a>
+
+          {% if post.image == 'post/default.png' %}
+          <img src='https://picsum.photos/100/200' class="card-img-top m-0 shadow-lg" style="height: 200px;"
+            alt="{{post.title}}">
+          {% else %}
+          <img src='/media/{{post.image}}' class="card-img-top m-0 shadow-lg" style="height: 200px;"
+            alt="{{post.title}}">
+          {% endif %}
+
+        </a>
+
         {% else %}
+
         <a href="/accounts/login">
-          <img src='/media/{{post.image}}' class="card-img-top m-0 shadow-lg" style="height: 200px;" alt="{{post.title}}"> </a>
+          {% if post.image == 'post/default.png' %}
+          <img src='https://picsum.photos/100/200' class="card-img-top m-0 shadow-lg" style="height: 200px;"
+            alt="{{post.title}}">
+          {% else %}
+          <img src='/media/{{post.image}}' class="card-img-top m-0 shadow-lg" style="height: 200px;"
+            alt="{{post.title}}">
+
+          {% endif %}
+        </a>
         {% endif %}
-        
+
+
+
         <div class="card-body overflow-hidden">
           <p class="card-title fs-6 lora">{{post.title}}</p>
           <p class="card-text" style='height: 60px;'>{{post.content}}</p>
         </div>
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush" >
           <li class="list-group-item p-1">{{post.category}}</li>
-          <li class="list-group-item p-1">PUBLISH DATE:{{publish.date}}</li>
+          <li class="list-group-item p-1">Publih date:{{post.publish_date}}</li>
           <li class="list-group-item p-1">Last Update: {{post.last_update}}</li>
         </ul>
-        <div class="card-body p-0 lora">
+        <div class="card-body p-0 lora ">
 
           {% for comment in comments %}
           {% if comment.post == post.id %}
-          <i class="bi bi-chat-dots-fill text-primary float-end me-2">  {{comment.count}}</i>
+          <i class="bi bi-chat-dots-fill text-dark float-end me-2"> {{comment.count}}</i>
           {% endif %}
           {% endfor %}
-          
+
 
           {% for like in likes %}
           {% if like.post == post.id %}
-          <i class="bi bi-heart-fill text-danger float-end me-2">  {{like.count}}</i>
+          <i class="bi bi-heart-fill text-danger float-end me-2"> {{like.count}}</i>
           {% endif %}
           {% endfor %}
-          <i class="col-12 mb-0 lora text-primary" >Written by: {{post.user}}</i>
+
+          {% for click in clicks %}
+          {% if click.post == post.id %}
+          <i class="bi bi-eye-fill text-secondary float-end me-2"> {{click.count}}</i>
+          {% endif %}
+          {% endfor %}
+
+          <i class="col-12 mb-0 text-primary">Written by: {{post.user}}</i>
         </div>
-        
+
       </div>
 
-
+      {% endif %}
       {% endfor %}
+
+
 
     </div>
   </div>
 </div>
-
-<!-- {% if request.user.is_authenticated %}
-
-{% else %}
-<div class="card bg-dark text-white">
-  <img src="https://picsum.photos/200/300?grayscale" class="card-img" alt="picture">
-  <div class="card-img-overlay">
-   
-
-  </div>
-</div>
-{% endif %} -->
-
 
 
 {% endblock content %}

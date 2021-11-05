@@ -1,14 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-lg text-shadow lora">
   <div class="container-fluid">
-
-    <span class="fs-2 text-white me-5 ">Blog Project</span>
-
-
-    {% if request.path != '/post/' %}
-    <a class="navbar-brand" href="/post">Home</a>
-    {% endif %}
-
-
+    <a class="navbar-brand" href="/post">
+      <span class="fs-2 text-white me-5 ">Blog Project</span>
+  </a>
+    <!-- {% if request.path != '/post/' %}
+    {% endif %} -->
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -6,8 +6,15 @@
 <div class="container d-flex justify-content-center mt-3">
 
     <div class="container card m-3 p-2 col-12 col-md-8 col-lg-7 col-xl-5 shadow-lg rounded-3">
+        
+        {% if post.image == 'post/default.png' %}
+        <img src='https://picsum.photos/200/400' style="height: 30rem; border-radius: 20px;" class="card-img-top"
+        alt="lorem Picsum"> <p>Lorem Picsum</p>
+        {% else %}
         <img src='/media/{{post.image}}' style="height: 16rem; border-radius: 20px;" class="card-img-top"
-            alt="{{post.title}}">
+        alt="{{post.title}}">
+        {% endif %}
+       
         <div class="card-body overflow-hidden">
             <h5 class="card-title">{{post.title}}</h5>
             <p class="card-text lora">
@@ -16,33 +23,38 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{post.category}}</li>
-            <li class="list-group-item">PUBLISH DATE:{{publish.date}}</li>
-            <li class="list-group-item">Last Update: {{post.last_update}}</li>
+            <li class="list-group-item lora">Published : {{different_time}} ago</li>
+            <li class="list-group-item lora">Last Update: {{post.last_update}}</li>
         </ul>
-        <div class="card-body">
+        <div class="card-body nuntio">
 
-            <a href="{% url 'addlike' post.id %}" class="btn btn-warning btn-lg shadow-lg rounded-circle">
+            <a href="{% url 'addlike' post.id %}" class="btn btn-light">
                 {% if is_like == True %}
                 <i class="bi bi-heart-fill text-danger"></i>
-                <span class='lora fs-4 bg-warning text-danger rounded-circle' data-toggle="tooltip"
+                <span class='lora fs-5  text-danger ' data-toggle="tooltip"
                     data-placement="right" title="take it back"
-                    style="position: absolute; left: 30%; top: 87%; transform: rotate(-30deg);">you
+                    style="position: absolute; left: 30%; top: 89%; transform: rotate(-20deg);">you
                     liked !</span>
 
                 {% else %}
                 <i class="bi bi-heart text-danger" data-toggle="tooltip" data-placement="right" title="like !"></i>
                 {% endif %}
-                {{like}}
+                <span class='fw-normal'>{{like}}</span>
             </a>
+            
 
             {% if post.user == request.user %}
-            <a href="{% url 'delete' post.id %}" class="btn btn-danger float-end"><i class="bi bi-trash-fill"></i></a>
+            <a href="{% url 'update' post.id %}" class="btn btn-info float-end me-2 rounded-circle"><i class="bi bi-pencil-square"></i></a>
 
-            <a href="{% url 'update' post.id %}" class="btn btn-info float-end"><i class="bi bi-pencil-square"></i></a>
+            <a href="{% url 'delete' post.id %}" class="btn btn-danger float-end me-2 rounded-circle"><i class="bi bi-trash-fill"></i></a>
+
+            
             {% endif %}
+            <p class="bi bi-eye-fill text-dark fs-6 float-start me-3 mt-1"> {{post_click}}</p>
 
         </div>
-        <p class="col-12 mb-0 lora" style='font-size: 12px;'>Written by: {{post.user}}</p>
+        <p class="col-12 mb-0 lora float-end" style='font-size: 10px;'>Written by: {{post.user}}  / Status: {{post.status}} </p>
+        
     </div>
 
 </div>

@@ -11,6 +11,6 @@ urlpatterns = [
     path('logout/', user_logout , name='logout'),
     path('register/', register , name='register'),
     path('addlike/<int:id>', add_like , name='addlike'),
-    path('updatepost/<int:id>', update_post , name='update'),
+    path('update/<int:id> ', update_post , name='update'),
     
 ]

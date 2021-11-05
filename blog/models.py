@@ -20,7 +20,7 @@ class Post(models.Model):
     category = models.ForeignKey(Category , related_name='user', on_delete=models.CASCADE )
     title = models.CharField(max_length=20)
     content = models.TextField(max_length=1000)
-    image = models.ImageField(upload_to='post', default='post/indir.png', blank=True)
+    image = models.ImageField(upload_to='post', default='post/default.png', blank=True)
     publish_date = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10 , choices=STATUS)
@@ -65,7 +65,11 @@ class PostView(models.Model):
         return self.post.title
 
 
-
+class Click(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     
+    def __str__(self):
+        return f'${self.post.title} click nummer'
       
      

@@ -2,8 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
 
 .lora {
-    font-family: 'Lora', serif;
+    font-family: 'Lora';
     font-size: 0.8rem;
+}
+
+.lora_sm {
+    font-family: 'Lora';
+    font-size: 8px;
 }
 
 .nuntio {

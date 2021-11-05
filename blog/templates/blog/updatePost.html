@@ -5,10 +5,11 @@
 {% if request.user.is_authenticated %}
 <h1 class='nuntio m-5 text-center' > Update Post</h1>
 {% load crispy_forms_tags %}
-<form class='container col-11 col-md-7 col-lg-5 mt-3 nuntio' enctype='multipart/form-data'  action='{% url "updatepost" %}' method="post">
+<form class='container col-11 col-md-7 col-lg-5 mt-3 nuntio' enctype='multipart/form-data'  action='{% url "update" post_id %}' method="post">
     {% csrf_token %}  {{ form | crispy }}
     <input class='col-12 btn btn-danger mt-3' type="submit" value='&#8627 Update'>
 </form>
+
 {% endif %}
     
 {% endblock content %}

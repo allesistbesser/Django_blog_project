@@ -1,20 +1,22 @@
 <div class="container d-flex justify-content-center" >
 <div class="col-12 col-md-8 col-lg-7 col-xl-5 border rounded-3 p-1">
-<h4 class='text-center border-bottom p-1 nuntio fs-6 fw-bold'>Comments</h4> 
+<h4 class='text-center border-bottom p-1 nuntio fs-6 fw-bold'>Comments </h4> 
+{% if is_comment == False %}
+<p class="col-12  shadow-md nuntio" style='font-size: 12px;'>not comment at the moment</p>
+{% endif %}
 <marquee style="height: 150px;" scrollamount="2" direction="up" onmouseover="stop()" onmouseout="start()">
 {% for comment in comments %}
 
     
-{% if comment.post_id == post.id %}
+
 
     <p class="col-12 mb-0 lora fw-bold" style='font-size: 10px;'>from : {{comment.user}} // {{comment.time_stamp}}</p>
     <p class="col-12  shadow-md nuntio" style='font-size: 12px;'>{{comment.content}}</p>
 
-
-{% endif %}
-
-
 {% endfor %}
 </marquee>
+
+
 </div>
 </div>
+
