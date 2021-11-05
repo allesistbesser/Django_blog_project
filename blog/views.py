@@ -17,7 +17,6 @@ def post(request):
     clicks = Click.objects.values('post').annotate(count=Count('post'))
     likes = Like.objects.values('post').annotate(count=Count('post'))
     comments = Comment.objects.values('post').annotate(count=Count('post'))
-      
     
     context = {
        'posts': posts,
@@ -49,7 +48,7 @@ def post_detail(request, id):
     # pb = post.publish_date.date()
     # different_time = str(now-pb)[:6]
     # print(different_time)
-    diff_time = different_time(post)
+    # diff_time = different_time(post)
     
     context = {
         'post':post,
@@ -58,16 +57,16 @@ def post_detail(request, id):
         'like': like,
         'is_like':bool(is_like),
         'post_click': post_click,
-        'different_time': diff_time,
+        # 'different_time': diff_time,
         
     }
     return render(request, 'blog/post_detail.html' , context)
 
-def different_time(post):
-    now = datetime.now().date() 
-    pb = post.publish_date.date()
-    different_time = str(now-pb)[:6]
-    return different_time
+# def different_time(post):
+#     now = datetime.now().date() 
+#     pb = post.publish_date.date()
+#     different_time = str(now-pb)[:6]
+#     return different_time
     
 
 def add_comment(request,id):
@@ -75,7 +74,7 @@ def add_comment(request,id):
     comment = Comment.objects.create(user=request.user, post=post , content=request.POST['comment'])
     comment.save()
     
-    comments=Comment.objects.all()
+    comments=Comment.objects.filter(post=id)
     like = Like.objects.all().filter(post=id).count()
     is_like = Like.objects.filter(user=request.user, post=post)
     
@@ -101,7 +100,7 @@ def add_like(request,id):
     is_like = Like.objects.filter(user=request.user, post=post)
     post_click = Click.objects.all().filter(post=id).count()
     
-    diff_time = different_time(post)
+    # diff_time = different_time(post)
         
     context = {
         'post':post,
@@ -109,7 +108,7 @@ def add_like(request,id):
         'like': like,
         'is_like':bool(is_like),
         'post_click': post_click,
-        'different_time': diff_time,
+        # 'different_time': diff_time,
         'is_comment': bool(len(comments)),
     }
     return render(request, 'blog/post_detail.html' , context)
@@ -146,7 +145,6 @@ def update_post(request,id):
         'post_id': post.id
     }
     return render (request, 'blog/updatePost.html', context)
-        
       
 def delete_post(request,id):
     post=get_object_or_404(Post , id=id)

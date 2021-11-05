@@ -11,7 +11,7 @@
         <img src='https://picsum.photos/200/400' style="height: 30rem; border-radius: 20px;" class="card-img-top"
         alt="lorem Picsum"> <p>Lorem Picsum</p>
         {% else %}
-        <img src='/media/{{post.image}}' style="height: 16rem; border-radius: 20px;" class="card-img-top"
+        <img src='/media/{{post.image}}' style="height: 30rem; border-radius: 20px;" class="card-img-top"
         alt="{{post.title}}">
         {% endif %}
        
@@ -23,17 +23,17 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">{{post.category}}</li>
-            <li class="list-group-item lora">Published : {{different_time}} ago</li>
+            <li class="list-group-item lora">Published : {{post.publish_date | timesince }} ago</li>
             <li class="list-group-item lora">Last Update: {{post.last_update}}</li>
         </ul>
         <div class="card-body nuntio">
 
-            <a href="{% url 'addlike' post.id %}" class="btn btn-light">
+            <a href="{% url 'addlike' post.id %}" class="btn btn-light float-start">
                 {% if is_like == True %}
                 <i class="bi bi-heart-fill text-danger"></i>
                 <span class='lora fs-5  text-danger ' data-toggle="tooltip"
                     data-placement="right" title="take it back"
-                    style="position: absolute; left: 30%; top: 89%; transform: rotate(-20deg);">you
+                    style="position: absolute; left: 45%; top: 92%; transform: rotate(-20deg);">you
                     liked !</span>
 
                 {% else %}
@@ -50,7 +50,8 @@
 
             
             {% endif %}
-            <p class="bi bi-eye-fill text-dark fs-6 float-start me-3 mt-1"> {{post_click}}</p>
+            <p class="bi bi-eye-fill text-dark fs-6 float-start me-3 mt-2"> {{post_click}}</p>
+            <p class="bi bi-chat-dots-fill text-dark fs-6 float-start me-3 mt-2"> {{comments.count}}</p>
 
         </div>
         <p class="col-12 mb-0 lora float-end" style='font-size: 10px;'>Written by: {{post.user}}  / Status: {{post.status}} </p>

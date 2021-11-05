@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="card bg-dark ">
+<div class="card bg-dark" >
   <img src="https://picsum.photos/400/600" class="card-img" alt="picture">
   <div class="card-img-overlay">
 
@@ -65,7 +65,7 @@
         </div>
         <ul class="list-group list-group-flush" >
           <li class="list-group-item p-1">{{post.category}}</li>
-          <li class="list-group-item p-1">Publih date:{{post.publish_date}}</li>
+          <li class="list-group-item p-1">Publih date: {{post.publish_date | timesince }}</li>
           <li class="list-group-item p-1">Last Update: {{post.last_update}}</li>
         </ul>
         <div class="card-body p-0 lora ">
