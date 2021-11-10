@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import delete_post, home , post , post_detail , add_comment, add_post , delete_post, update_post, user_logout , register , add_like
+from .views import delete_post, home , post , post_detail , add_comment, add_post , delete_post, update_post, user_logout , register , add_like , api_get
 
 urlpatterns = [
     path('', post , name='post'),
@@ -12,5 +12,6 @@ urlpatterns = [
     path('register/', register , name='register'),
     path('addlike/<int:id>', add_like , name='addlike'),
     path('update/<int:id> ', update_post , name='update'),
+    path('api_get/', api_get ),
     
 ]

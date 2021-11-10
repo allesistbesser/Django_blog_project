@@ -50,7 +50,7 @@
           <img src='https://picsum.photos/100/200' class="card-img-top m-0 shadow-lg" style="height: 200px;"
             alt="{{post.title}}">
           {% else %}
-          <img src='/media/{{post.image}}' class="card-img-top m-0 shadow-lg" style="height: 200px;"
+          <img src='{{post.image.url}}' class="card-img-top m-0 shadow-lg" style="height: 200px;"
             alt="{{post.title}}">
 
           {% endif %}
@@ -61,7 +61,7 @@
 
         <div class="card-body overflow-hidden">
           <p class="card-title fs-6 lora">{{post.title}}</p>
-          <p class="card-text" style='height: 60px;'>{{post.content}}</p>
+          <p class="card-text" style='height: 60px;'>{{post.content | truncatechars:100}}</p>
         </div>
         <ul class="list-group list-group-flush" >
           <li class="list-group-item p-1">{{post.category}}</li>

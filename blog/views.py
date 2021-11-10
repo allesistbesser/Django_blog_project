@@ -5,6 +5,9 @@ from django.contrib.auth import logout , authenticate , login
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.db.models import Count
+from rest_framework.decorators import api_view
+from .serializers import PostSerializer
+from rest_framework.response import Response
 
 from datetime import datetime 
 
@@ -179,3 +182,9 @@ def register(request):
         'form': form
     }
     return render(request, 'registration/register.html',context )
+
+@api_view(['GET'])
+def api_get(request):
+    querset = Post.objects.all()
+    serializer = PostSerializer(querset, many=True)
+    return Response(serializer.data)
