@@ -5,11 +5,13 @@ from django.contrib.auth import logout , authenticate , login
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.db.models import Count
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from .serializers import PostSerializer
 from rest_framework.response import Response
 
-from datetime import datetime 
+from datetime import datetime
+from rest_framework.permissions import IsAuthenticated
+
 
 # Create your views here.
 def home(request):
@@ -17,26 +19,26 @@ def home(request):
 
 def post(request):
     posts = Post.objects.all()
-    clicks = Click.objects.values('post').annotate(count=Count('post'))
-    likes = Like.objects.values('post').annotate(count=Count('post'))
-    comments = Comment.objects.values('post').annotate(count=Count('post'))
+    # clicks = Click.objects.values('post').annotate(count=Count('post'))
+    # likes = Like.objects.values('post').annotate(count=Count('post'))
+    # comments = Comment.objects.values('post').annotate(count=Count('post'))
     
     context = {
        'posts': posts,
-       'likes': likes,
-       'comments': comments,
-       'clicks': clicks,
+    #    'likes': likes,
+    #    'comments': comments,
+    #    'clicks': clicks,
     }
     return render( request, 'blog/post.html', context)
 
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
     comments=Comment.objects.filter(post=id)
-    like = Like.objects.all().filter(post=id).count()
+    # like = Like.objects.all().filter(post=id).count()
     is_like = Like.objects.filter(user=request.user, post=post)
     click = Click.objects.create(user=request.user, post=post)
     click.save()
-    post_click = Click.objects.all().filter(post=id).count()
+    # post_click = Click.objects.all().filter(post=id).count()
        
     # now_day = datetime.now().year
     # now_day = datetime.now().day
@@ -57,9 +59,9 @@ def post_detail(request, id):
         'post':post,
         'comments': comments,
         'is_comment': bool(len(comments)),
-        'like': like,
+        # 'like': like,
         'is_like':bool(is_like),
-        'post_click': post_click,
+        # 'post_click': post_click,
         # 'different_time': diff_time,
         
     }
@@ -78,13 +80,13 @@ def add_comment(request,id):
     comment.save()
     
     comments=Comment.objects.filter(post=id)
-    like = Like.objects.all().filter(post=id).count()
+    # like = Like.objects.all().filter(post=id).count()
     is_like = Like.objects.filter(user=request.user, post=post)
     
     context = {
         'post':post,
         'comments': comments,
-        'like': like,
+        # 'like': like,
         'is_like':bool(is_like),
     }
     return render(request, 'blog/post_detail.html' , context)
@@ -184,7 +186,8 @@ def register(request):
     return render(request, 'registration/register.html',context )
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def api_get(request):
     querset = Post.objects.all()
     serializer = PostSerializer(querset, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data) 

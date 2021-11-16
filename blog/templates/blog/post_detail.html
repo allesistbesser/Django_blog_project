@@ -39,7 +39,7 @@
                 {% else %}
                 <i class="bi bi-heart text-danger" data-toggle="tooltip" data-placement="right" title="like !"></i>
                 {% endif %}
-                <span class='fw-normal'>{{like}}</span>
+                <span class='fw-normal'>{{post.like_count}}</span>
             </a>
             
 
@@ -50,8 +50,8 @@
 
             
             {% endif %}
-            <p class="bi bi-eye-fill text-dark fs-6 float-start me-3 mt-2"> {{post_click}}</p>
-            <p class="bi bi-chat-dots-fill text-dark fs-6 float-start me-3 mt-2"> {{comments.count}}</p>
+            <p class="bi bi-eye-fill text-dark fs-6 float-start me-3 mt-2"> {{post.view_count}}</p>
+            <p class="bi bi-chat-dots-fill text-dark fs-6 float-start me-3 mt-2"> {{post.comment_count}}</p>
 
         </div>
         <p class="col-12 mb-0 lora float-end" style='font-size: 10px;'>Written by: {{post.user}}  / Status: {{post.status}} </p>

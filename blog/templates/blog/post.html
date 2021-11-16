@@ -70,24 +70,27 @@
         </ul>
         <div class="card-body p-0 lora ">
 
-          {% for comment in comments %}
+          <!-- {% for comment in comments %}
           {% if comment.post == post.id %}
           <i class="bi bi-chat-dots-fill text-dark float-end me-2"> {{comment.count}}</i>
           {% endif %}
-          {% endfor %}
+          {% endfor %} -->
+          <i class="bi bi-chat-dots-fill text-dark float-end me-2"> {{post.comment_count}}</i>
 
-
-          {% for like in likes %}
+          <!-- {% for like in likes %}
           {% if like.post == post.id %}
           <i class="bi bi-heart-fill text-danger float-end me-2"> {{like.count}}</i>
           {% endif %}
-          {% endfor %}
+          {% endfor %} -->
+          <i class="bi bi-heart-fill text-danger float-end me-2"> {{post.like_count}}</i>
 
-          {% for click in clicks %}
+          <!-- {% for click in clicks %}
           {% if click.post == post.id %}
           <i class="bi bi-eye-fill text-secondary float-end me-2"> {{click.count}}</i>
           {% endif %}
-          {% endfor %}
+          {% endfor %} -->
+          <i class="bi bi-eye-fill text-secondary float-end me-2"> {{post.view_count}}</i>
+
 
           <i class="col-12 mb-0 text-primary">Written by: {{post.user}}</i>
         </div>
